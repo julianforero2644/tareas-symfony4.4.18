@@ -1,0 +1,43 @@
+{% if tasks|length >= 1 %}
+
+<table>
+	<tr>
+		<th>Titulo</th>
+		<th>Prioridad</th>
+		<th>Horas</th>
+		<th>Acciones</th>
+	</tr>
+
+	{% for task in tasks %}
+		<tr>
+			<td>{{ task.title }}</td>
+			<td>
+				{% if task.priority == 'high' %}
+					{{ 'Alta' }}
+				{% endif %}
+				{% if task.priority == 'medium' %}
+					{{ 'Medio' }}
+				{% endif %}
+				{% if task.priority == 'low' %}
+					{{ 'Bajo' }}
+				{% endif %}
+			</td>
+			<td>{{ task.hours }}</td>
+			<td class='buttons'>
+				<a href="{{ path('task_detail', {'id':task.id}) }}" class='btn-show'>Ver</a>
+				
+            <!-- Compruebo que el usuario logueado sea el mismo que creo las tareas -->
+                {% if app.user != null and task.user.id == app.user.id %}
+                    <a href="{{ path('editar_tarea', {'id':task.id}) }}" class='btn-edit'>Editar</a>
+					<a href="{{ path('borrar_tarea', {'id':task.id}) }}" class='btn-delete'>Eliminar</a>
+				{% endif %}
+
+				
+			</td>
+		</tr>
+	{% endfor %}
+
+</table>
+{% else %}
+    <h3>No existen tareas disponibles para este usuario.</h3>
+{% endif %}

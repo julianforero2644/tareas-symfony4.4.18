@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Detalle de la tarea
+{% endblock %}
+
+{% block body %}
+    
+    <div class="example-wrapper">
+        <h2>Detalle {{ tasks.title }}</h2>
+        <table>
+            <tr>
+                <th>Usuario</th>                               
+                <th>Descripción</th>
+                <th>Horas</th>
+                <th>Tiempo</th>
+                <th>Prioridad</th>
+
+            </tr>            
+
+            <tr>
+                <td>{{ tasks.user.name }}  {{ tasks.user.surname }}</td>                               
+                <td>{{ tasks.content }}</td>
+                <td>{{ tasks.hours }}</td>
+                <td>{{ tasks.createdAt|date('d/m/Y h:i') }}</td>
+                <td>
+                        {% if tasks.priority == 'high' %}
+                            {{ 'Alta' }}
+                        {% endif %}
+                        {% if tasks.priority == 'medium' %}
+                            {{ 'Medio' }}
+                        {% endif %}
+                        {% if tasks.priority == 'low' %}
+                            {{ 'Bajo' }}
+                        {% endif %}
+                </td>
+
+            </tr>                
+
+
+        </table>
+    </div>
+{% endblock %}
